@@ -17,13 +17,40 @@ impl Row {
 pub struct Data {
     pub test_name: String,
     pub row_data: Vec<Row>,
+	pub curve_data1: Vec<Row>,
+	pub curve_data2: Vec<Row>,
+	pub curve_data3: Vec<Row>,
+	pub curve_data4: Vec<Row>,
+	pub curve_data5: Vec<Row>
 }//end struct Data
 
 impl Data {
     /// Creates a new Data struct with given test_name, empty row_data.
-    pub fn new(test_name: String) -> Data {Data{test_name,row_data:Vec::new()}}
+    pub fn new(test_name: String) -> Data {
+		Data{
+			test_name,
+			row_data:Vec::new(),
+			curve_data1:Vec::new(),
+			curve_data2:Vec::new(),
+			curve_data3:Vec::new(),
+			curve_data4:Vec::new(),
+			curve_data5:Vec::new(),
+			
+		}
+	}
     /// Creates a new Data struct with given test_name and row_data.
-    pub fn new1(test_name: String, row_data: Vec<Row>) -> Data {Data{test_name,row_data}}
+    pub fn new1(test_name: String, row_data: Vec<Row>, curve_data1: Vec<Row>, curve_data2: Vec<Row>, curve_data3: Vec<Row>, curve_data4: Vec<Row>,curve_data5: Vec<Row> ) -> Data {
+		Data{
+			test_name,
+			row_data,
+			curve_data1,
+			curve_data2,
+			curve_data3,
+			curve_data4,
+			curve_data5,
+
+		}
+	}
 }//end impl Data
 
 /// Gets the test name, such as "24-PCF4001", from the lines of a file.
@@ -111,7 +138,85 @@ pub fn read_data_from_file(filename: &str, file_contents: &str, config: &ConfigS
     // sort the row_data based off config
     row_data = sort_row_data(row_data, config);
 
-    Ok((Data::new1(test_name, row_data),errs))
+	let mut curve1 = Vec::new();
+	for line in &lines[41..=51] {
+		let split_row: Vec<&str> = line.split("\t").collect();
+		if split_row.len() < 2 {errs.push(format!("Couldn't find a proper split for \"{:?}\", len < 2", split_row));}
+		else {
+			let row_header = split_row[0].to_string();
+			let row_value = split_row[1].trim().parse::<f64>();
+			match row_value {
+				Ok(row_value) => curve1.push(Row::new(row_header, row_value)),
+				Err(msg) => errs.push(format!("Failed to parse \"{}\" in line \"{}\" as f64:\n{}",split_row[1],line,msg)),
+			}//end matching whether we can parse the raw value
+		}//end else we can get split stuff find
+	}
+
+	let mut curve2 = Vec::new();
+	for line in &lines[54..=64] {
+		let split_row: Vec<&str> = line.split("\t").collect();
+		if split_row.len() < 2 {errs.push(format!("Couldn't find a proper split for \"{:?}\", len < 2", split_row));}
+		else {
+			let row_header = split_row[0].to_string();
+			let row_value = split_row[1].trim().parse::<f64>();
+			match row_value {
+				Ok(row_value) => curve2.push(Row::new(row_header, row_value)),
+				Err(msg) => errs.push(format!("Failed to parse \"{}\" in line \"{}\" as f64:\n{}",split_row[1],line,msg)),
+			}//end matching whether we can parse the raw value
+		}//end else we can get split stuff find
+	}
+
+	let mut curve3 = Vec::new();
+	for line in &lines[67..=77] {
+		let split_row: Vec<&str> = line.split("\t").collect();
+		if split_row.len() < 2 {errs.push(format!("Couldn't find a proper split for \"{:?}\", len < 2", split_row));}
+		else {
+			let row_header = split_row[0].to_string();
+			let row_value = split_row[1].trim().parse::<f64>();
+			match row_value {
+				Ok(row_value) => curve3.push(Row::new(row_header, row_value)),
+				Err(msg) => errs.push(format!("Failed to parse \"{}\" in line \"{}\" as f64:\n{}",split_row[1],line,msg)),
+			}//end matching whether we can parse the raw value
+		}//end else we can get split stuff find
+	}
+
+	let mut curve4 = Vec::new();
+	for line in &lines[80..=90] {
+		let split_row: Vec<&str> = line.split("\t").collect();
+		if split_row.len() < 2 {errs.push(format!("Couldn't find a proper split for \"{:?}\", len < 2", split_row));}
+		else {
+			let row_header = split_row[0].to_string();
+			let row_value = split_row[1].trim().parse::<f64>();
+			match row_value {
+				Ok(row_value) => curve4.push(Row::new(row_header, row_value)),
+				Err(msg) => errs.push(format!("Failed to parse \"{}\" in line \"{}\" as f64:\n{}",split_row[1],line,msg)),
+			}//end matching whether we can parse the raw value
+		}//end else we can get split stuff find
+	}
+
+	let mut curve5 = Vec::new();
+	for line in &lines[93..=103] {
+		let split_row: Vec<&str> = line.split("\t").collect();
+		if split_row.len() < 2 {errs.push(format!("Couldn't find a proper split for \"{:?}\", len < 2", split_row));}
+		else {
+			let row_header = split_row[0].to_string();
+			let row_value = split_row[1].trim().parse::<f64>();
+			match row_value {
+				Ok(row_value) => curve5.push(Row::new(row_header, row_value)),
+				Err(msg) => errs.push(format!("Failed to parse \"{}\" in line \"{}\" as f64:\n{}",split_row[1],line,msg)),
+			}//end matching whether we can parse the raw value
+		}//end else we can get split stuff find
+	}
+
+    Ok((Data::new1(
+		test_name,
+		row_data,
+		curve1,
+		curve2,
+		curve3,
+		curve4,
+		curve5,
+	),errs))
 }//end read_data_from_file()
 
 /// Sorts the Vec of Rows based off of config row order pref.  
