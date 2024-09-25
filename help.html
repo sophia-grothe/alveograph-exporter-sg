@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <body>
+        <h1>Alveograph-Exporter Help</h1>
+        <p>
+            Written by Nicholas Sixbury for v0.1.0 of usda-alveograph-exporter in September 2024<br>
+            For more/updated information, please see the relevant section in the user's guide.
+        </p>
+        
+        <h2>
+            Basics
+        </h2>
+        <p>
+            This program is created by Nicholas Sixbury and Dan Brabec at
+            USDA-ARS Manhattan, KS for the use of Rhett Kaufman and his team
+            to more easily extract data from the alveograph.
+        </p>
+        <p>
+            As such, the program is designed to take a number of text files
+            from the alveograph and compile them into a single output file
+            which only contains the information desired by Rhett and his team.
+        </p>
+        <p>
+            The default configuration is tuned to the current format of
+            alveograph files and may or may not work if the manufacturers of
+            the alveograph change their output format. For this reason, the
+            configuration of the usda-alveograph-exporter can be edited to
+            account for a number of changes. More information on configuration
+            options is displayed later.
+            <br><strong>
+                You can reset your configuration to the default at any time by
+                clicking the "Config Reset" Button.
+            </strong>
+        </p>
+        <p>
+            <strong>
+                In order to use the program, assuming your configuration is correct:
+                <ol>
+                    <li>Click "<b>Select Input File(s)</b>" to select as many input files as you'd like.</li>
+                    <li>Click "<b>Select Output File</b>" to select a location and name for the output file.</li>
+                    <li>Click "<b>Process Data</b>", and the program will process all the files you've chosen.</li>
+                </ol>
+                If anything goes wrong during this process, you should receive an error message
+                explaining what went wrong as well as your options for moving forward.
+            </strong>
+        </p>
+        
+        <h2>
+            Configuration Options
+        </h2>
+        <p>
+            In order to understand the options for configuring the program, it's
+            probably best to start by explaining more of how the program works.<br>
+            In each file, the program generally tries to find two things:
+            <ul>
+                <li>The test name for the data in that file</li>
+                <li>A few rows of data showing the average results for that file.</li>
+            </ul>
+            Each configuration setting will be described below. If you would like an
+            example of a working config and file, use the default config (obtainable 
+            at any time by clicking "Config Reset") and the sample_input.txt file that
+            should be present wherever your application is installed, in the same
+            directory as the executable file and the help.html file.
+        </p>
+        <h4>Test Name Prefix</h4>
+        <p>
+            In order to find the test name, the program searches for a heading that goes
+            in front of the name. For example, it might appear as "Test name : 23SC006" or
+            something similar. We want to extract the "23SC006" from that line, so we set
+            the "<b>Test Name Prefix</b>" to "Test name : ". The program looks for a line that
+            starts with the prefix and then assumes that anything after the prefix is the
+            test name. <br>
+            You can easily set the test name prefix by copying the value out of your input
+            file and pasting it in the box in the configuration settings labelled "<b>Test Name Prefix</b>".
+        </p>
+        <h4>
+            Reading Data Rows: Finding the Start Header
+        </h4>
+        <p>
+            In order to find the rows of data in the program, we need to find the line above where
+            those rows start. This is referred to as the "<b>Read Start Header</b>", and there are two different
+            ways of finding it.
+        </p>
+        <p>
+            If the "<b>Read Start Mode</b>" is set to "<b>Header</b>", then you can paste the header you're looking
+            for into the box labelled "<b>Read Start Header</b>" in the configuration section. The program will
+            then search each file for a line exactly matching the text you provide, and then look for rows
+            of data underneath that header.
+        </p>
+        <p>
+            Alternatively, if the "<b>Read Start Mode</b>" is set to "<b>Index</b>", then you can provide the line
+            number of the row start header. Please note that <strong>the index for the start header uses
+            0-based indexing</strong>, so if the line numbers in your file start with 1, subtract one
+            from the line number displayed from the start header to find out what you should input into
+            the box labelled "<b>Read Start Idx</b>".
+        </p>
+        <h4>
+            Reading Data Rows: Selecting and Parsing the Data Rows
+        </h4>
+        <p>
+            Once the program finds the Read Start Header, it needs to know which and how many rows to read.
+            In addition, it needs a bit of information on how each row is formatted. In general, it is assumed
+            that each row contains:
+            <ul>
+                <li>A header for the row, such as "P" or "L"</li>
+                <li>A decimal value, which is the actual data for the row.</li>
+                <li>A character or string separating the header from the value, such as a tab character.</li>
+            </ul>
+            It is also assumed that the header comes first, followed by the separation character, 
+            followed by the actual value.<br> The separation character might also be repeated after 
+            the value, in which case anything after the second separation character will be ignored.<br>
+            You can specify the separation character by pasting the text from your file into the box
+            labelled "<b>Row Split Character</b>".
+        </p>
+        <p>
+            If the "<b>Read Row Mode</b>" is set to "<b>Header</b>", then in order to find the
+            data rows, the program will match the rows it finds against the "<b>Read Row Headers</b>"
+            setting. In the "<b>Read Row Headers</b>" box, several row headers are provided in a
+            particular order. The program then looks for rows headers exactly matching the ones provided,
+            in the same order. When the program either runs out of specified rows or encounters
+            a line which doesn't start with the next header in the "<b>Read Row Headers</b>" list,
+            it will stop reading data rows for that file. In the case of the program not being able
+            to find all the headers its given, it might display an error message, giving the user
+            the option of halting execution if this is unexpected.<br>
+            You can configure the "<b>Read Row Headers</b>" by simply typing into the box labelled
+            "<b>Read Row Headers</b>". Be careful to type each header exactly, in the same order
+            they appear in your file. Do not include separation characters such as tabs or empty
+            lines at the end of the box. The rows are labelled with linenumbers so you can see exactly
+            how many lines are listed.
+        </p>
+        <p>
+            Alternatively, if the "<b>Read Row Mode</b>" is set to "<b>Max</b>", then you may
+            simply tell the program to read an arbitrary number of lines after the Read Start Header.<br>
+            For example: if you wanted to read 11 data rows that occur right after the start header,
+            you could simply enter "11" into the "<b>Read Rows Max</b>" box. This is useful if the data
+            rows might have different headers in different files, if the headers are not in the same
+            order, or simply if you want a simpler way of configuring this setting.
+        </p>
+        <h4>
+            Row Order Preference
+        </h4>
+        <p>
+            There might be a case in which you prefer that your output be formatted with each header
+            in a particular order. The "<b>Read Row Headers</b>" specifies how the rows are ordered within your
+            file, but that order may not be under your control. Thus, you can use the "<b>Row Order Pref.</b>"
+            box to change this. You can add Row Headers to the "<b>Row Order Pref.</b>" box using the same
+            formatting as the "<b>Read Row Headers</b>" box, but Row Order Preference is much less picky.<br>
+            Any rows with the headers provided will be placed at the front of the output, in the order listed.
+            Any rows headers provided but not found will simply be ignore. Any rows headers found but not
+            provided will be placed at the end of the output, in whichever order they appear.<br>
+            Thus, "<b>Row Order Pref.</b>" will not add or remove any data from your output; it will only
+            rearrange things.
+        </p>
+        <h4>
+            Further Information
+        </h4>
+        <p>
+            If you have a question that has not been answered by the material here, please first check the
+            user guide, which is more likely to be updated in later versions.
+        </p>
+        <p>
+            If you cannot find a solution there, feel free to peruse the source code if you think it might help.
+            As of writing, the source code can be found at 
+            <a href="https://github.com/nico6bury/usda-alveograph-exporter">https://github.com/nico6bury/usda-alveograph-exporter</a>
+            . <br>If that still doesn't answer your questions either, you can try to contact the developer at
+            nicholas.sixbury@usda.gov or daniel.brabec@usda.gov.
+        </p>
+    </body>
+</html>

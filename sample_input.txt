@@ -1,0 +1,128 @@
+awefiaeubfaiokbfjaffbkajbfafa
+Test name	:	Sample001-1234567
+awferajaegkagn
+aaejonfkalfnla;
+
+Standard	 : 	Curve1
+P	1
+L	2
+G	3
+W	4
+P/L	5
+Ie	6
+K	7
+SH	8
+Dmin	9
+Dmax	0.10
+H2O	0.11
+
+Standard
+P	17
+L	27
+G	37
+W	47
+P/L	57
+Ie	67
+K	77
+SH	87
+Dmin	97
+Dmax	07.10
+H2O	07.11
+
+Standard	 : 	Curve1
+P	17
+L	27
+G	37
+W	47
+P/L	57
+Ie	67
+K	77
+SH	87
+Dmin	97
+Dmax	07.10
+H2O	07.11
+
+Standard	 : 	Curve2
+P	12
+L	22
+G	32
+W	42
+P/L	52
+Ie	62
+K	72
+SH	82
+Dmin	29
+Dmax	02.10
+H2O	0.211
+
+Standard	 : 	Curve3
+P	13
+L	23
+G	33
+W	43
+P/L	53
+Ie	63
+K	73
+SH	83
+Dmin	39
+Dmax	0.310
+H2O	0.311
+
+Standard	 : 	Curve4
+P	13
+L	23
+G	33
+W	43
+P/L	53
+Ie	64
+K	74
+SH	84
+Dmin	49
+Dmax	0.410
+H2O	04.11
+
+Standard	 : 	Curve5
+P	15
+L	25
+G	35
+W	45
+P/L	55
+Ie	65
+K	75
+SH	85
+Dmin	59
+Dmax	05.10
+H2O	0.151
+
+egrwegerbwg
+wergwegwgwgrwg
+wgewrwrgwegwrerg
+werwegerwgrewrg
+werwegrwgrwgrwg
+wgergwgrwergwergw
+erknjgespoilja
+goreisngs;glnsgsrgs
+roeigeolgnerlgkeg
+Standard	 : 	Average
+P	1
+L	2
+G	3
+W	4
+P/L	5
+Ie	6
+K	7
+SH	8
+Dmin	9
+Dmax	0.10
+H2O	0.11
+ewjfkbwfw   7
+woefnwf oiekwnfoww
+ewoifwnfwef
+weoifnwfkowlefm
+weofilknwflkwef
+foeiwnfwoflksf
+gorjenkfalrlua
+1234567891011121314151617181920
+end of file
+actual end of file
+gobbledigook
