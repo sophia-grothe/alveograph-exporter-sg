@@ -41,9 +41,10 @@ pub fn write_output_to_sheet(workbook: &mut Workbook, data: &Vec<Data>, sheet_na
         .set_border(BORDER_FORMAT)
         .set_font_size(FONT_SIZE_HEADER);
     sheet.write_with_format(HEADER_START_ROW,0,"Test Name", &bold)?;
+    sheet.write_with_format(HEADER_START_ROW,1,"Curve", &bold)?;
     for (index, row) in data.first().expect("already checked").row_data.iter().enumerate() {
         let index = index as u16;
-        sheet.write_with_format(HEADER_START_ROW,index + 1, row.header.clone(),&bold)?;
+        sheet.write_with_format(HEADER_START_ROW,index + 2, row.header.clone(),&bold)?;
     }//end writing each row header
 
     let test_name_format = Format::new()
@@ -57,11 +58,38 @@ pub fn write_output_to_sheet(workbook: &mut Workbook, data: &Vec<Data>, sheet_na
     let mut row_num = HEADER_START_ROW + 1;
     for data_file in data {
         sheet.write_with_format(row_num,0,data_file.test_name.clone(), &test_name_format)?;
-        for (col_offset,row) in data_file.row_data.iter().enumerate() {
+        sheet.write_with_format(row_num,1,"1".to_string(), &test_name_format)?;
+        sheet.write_with_format(row_num+1,1,"2".to_string(), &test_name_format)?;
+        sheet.write_with_format(row_num+2,1,"3".to_string(), &test_name_format)?;
+        sheet.write_with_format(row_num+3,1,"4".to_string(), &test_name_format)?;
+        sheet.write_with_format(row_num+4,1,"5".to_string(), &test_name_format)?;
+		sheet.write_with_format(row_num+5,1,"AVG".to_string(), &test_name_format)?;
+
+		for (col_offset,row) in data_file.curve_data1.iter().enumerate() {
             let col_offset = col_offset as u16;
-            sheet.write_number_with_format(row_num,1+col_offset,row.value, &default_format)?;
+            sheet.write_number_with_format(row_num,2+col_offset,row.value, &default_format)?;
         }//end looping over each row of data to place in a column
-        row_num += 1;
+		for (col_offset,row) in data_file.curve_data2.iter().enumerate() {
+            let col_offset = col_offset as u16;
+            sheet.write_number_with_format(row_num+1,2+col_offset,row.value, &default_format)?;
+        }//end looping over each row of data to place in a column
+		for (col_offset,row) in data_file.curve_data3.iter().enumerate() {
+            let col_offset = col_offset as u16;
+            sheet.write_number_with_format(row_num+2,2+col_offset,row.value, &default_format)?;
+        }//end looping over each row of data to place in a column
+		for (col_offset,row) in data_file.curve_data4.iter().enumerate() {
+            let col_offset = col_offset as u16;
+            sheet.write_number_with_format(row_num+3,2+col_offset,row.value, &default_format)?;
+        }//end looping over each row of data to place in a column
+		for (col_offset,row) in data_file.curve_data5.iter().enumerate() {
+            let col_offset = col_offset as u16;
+            sheet.write_number_with_format(row_num+4,2+col_offset,row.value, &default_format)?;
+        }//end looping over each row of data to place in a column
+		for (col_offset,row) in data_file.row_data.iter().enumerate() {
+            let col_offset = col_offset as u16;
+            sheet.write_number_with_format(row_num+5,2+col_offset,row.value, &default_format)?;
+        }//end looping over each row of data to place in a column
+        row_num += 6;
     }//end looping over each data file
 
     sheet.set_column_width(0, 14.5)?;
