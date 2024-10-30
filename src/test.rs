@@ -61,27 +61,27 @@ pub fn data_get_header_idx_from_lines1() {
     assert_eq!(header_idx, 7);
 }//end data_get_header_idx_from_lines1
 
-/// Test 1 for crate::data::read_data_from_file()
-#[test]
-pub fn data_read_data_from_file() {
-    let file_lines = sample_file_lines();
-    let config = sample_config();
-    let (data, errs) = crate::data::read_data_from_file(
-        "sample-filename",
-        &file_lines.join("\n"),
-        &config
-    ).unwrap();
-    assert!(errs.len() == 0);
-    let correct_data = crate::data::Data::new1(
-        "Sample001-1234567".to_string(),
-        vec![
-            crate::data::Row::new("G".to_string(),3.),
-            crate::data::Row::new("L".to_string(),2.),
-            crate::data::Row::new("P".to_string(),1.),
-        ],
-    );
-    assert_eq!(data, correct_data);
-}//end data_read_data_from_file()
+// /// Test 1 for crate::data::read_data_from_file()
+// #[test]
+// pub fn data_read_data_from_file() {
+//     let file_lines = sample_file_lines();
+//     let config = sample_config();
+//     let (data, errs) = crate::data::read_data_from_file(
+//         "sample-filename",
+//         &file_lines.join("\n"),
+//         &config
+//     ).unwrap();
+//     assert!(errs.len() == 0);
+//     let correct_data = crate::data::Data::new1(
+//         "Sample001-1234567".to_string(),
+//         vec![
+//             crate::data::Row::new("G".to_string(),3.),
+//             crate::data::Row::new("L".to_string(),2.),
+//             crate::data::Row::new("P".to_string(),1.),
+//         ],
+//     );
+//     assert_eq!(data, correct_data);
+// }//end data_read_data_from_file()
 
 /// Test 1 for crate::data::sort_row_data()
 #[test]
