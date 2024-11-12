@@ -4,9 +4,9 @@ use alveograph_exporter_s::config_store::{ConfigStore, ReadRowMode, ReadStartMod
 use fltk::{app::{self, App, Receiver, Sender}, button::Button, dialog::{self, BeepType, FileDialogOptions, FileDialogType, NativeFileChooser}, enums::{Align, Color, Event, FrameType}, frame::Frame, group::{Flex, FlexType, Group, Tile}, image::PngImage, input::IntInput, menu::Choice, misc::HelpView, prelude::{ButtonExt, DisplayExt, GroupExt, InputExt, MenuExt, WidgetBase, WidgetExt, WindowExt}, text::{TextBuffer, TextDisplay, TextEditor, WrapMode}, window::{self, Window}};
 
 /// Width in pixels of the main window
-const WINDOW_WIDTH: i32 = 700;
+const WINDOW_WIDTH: i32 = 750;
 /// Height in pixels of the main window
-const WINDOW_HEIGHT: i32 = 445;
+const WINDOW_HEIGHT: i32 = 465;
 
 /// FrameType to use for all major groups of widgets
 const GROUP_FRAME: FrameType = FrameType::GtkThinUpBox;
@@ -129,7 +129,7 @@ const CONF_INPUT_FRAME: FrameType = FrameType::GleamRoundUpBox;
 /// The size in pixels of the scrollbar for input widgets in the config section.
 const CONF_INPUT_SCROLLBAR_SIZE: i32 = 5;
 /// THe height in pixels of the multiline input flex in the config section.
-const CONF_MULTI_INPUT_HEIGHT: i32 = 175;
+const CONF_MULTI_INPUT_HEIGHT: i32 = 185;
 /// The height in pixels of the button flex in the config section.
 const CONF_BUTTON_HEIGHT: i32 = 30;
 /// The text size in pixels to use for the line number in multiline inputs in the config group.
