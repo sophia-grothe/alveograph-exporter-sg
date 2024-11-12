@@ -10,7 +10,7 @@ exclude = ["/target","/.vscode"]
 edition = "2021"
 
 [dependencies]
-fltk = { version = "1.4.33", features = ["fltk-bundled"] }
+fltk = { version = "1.4.33", features = ["use-ninja"] }
 time = { version = "0.3.36", features = ["macros", "formatting"] }
 compile-time = "0.2.0"
 serde = { version = "1.0.202", features = ["derive"] }
