@@ -151,6 +151,7 @@ pub fn read_data_from_file(filename: &str, file_contents: &str, config: &ConfigS
 			}//end matching whether we can parse the raw value
 		}//end else we can get split stuff find
 	}
+	curve1 = sort_row_data(curve1, config);
 
 	let mut curve2 = Vec::new();
 	for line in &lines[54..=64] {
@@ -165,6 +166,7 @@ pub fn read_data_from_file(filename: &str, file_contents: &str, config: &ConfigS
 			}//end matching whether we can parse the raw value
 		}//end else we can get split stuff find
 	}
+	curve2 = sort_row_data(curve2, config);
 
 	let mut curve3 = Vec::new();
 	for line in &lines[67..=77] {
@@ -179,6 +181,7 @@ pub fn read_data_from_file(filename: &str, file_contents: &str, config: &ConfigS
 			}//end matching whether we can parse the raw value
 		}//end else we can get split stuff find
 	}
+	curve3 = sort_row_data(curve3, config);
 
 	let mut curve4 = Vec::new();
 	for line in &lines[80..=90] {
@@ -193,6 +196,7 @@ pub fn read_data_from_file(filename: &str, file_contents: &str, config: &ConfigS
 			}//end matching whether we can parse the raw value
 		}//end else we can get split stuff find
 	}
+	curve4 = sort_row_data(curve4, config);
 
 	let mut curve5 = Vec::new();
 	for line in &lines[93..=103] {
@@ -207,6 +211,7 @@ pub fn read_data_from_file(filename: &str, file_contents: &str, config: &ConfigS
 			}//end matching whether we can parse the raw value
 		}//end else we can get split stuff find
 	}
+	curve5 = sort_row_data(curve5, config);
 
     Ok((Data::new1(
 		test_name,
@@ -236,12 +241,12 @@ pub fn sort_row_data(row_data: Vec<Row>, config: &ConfigStore) -> Vec<Row> {
         }//end searching for position of matching header
     }//end finding all the sorted headers we can
 
-	// add any non-sorted values to new_row_data
-	for i in 0..row_data.len() {
-		if !row_data_taken[i] {
-			new_row_data.push(row_data[i].clone());
-		}//end if this element hasn't been moved already
-	}//end adding non-sorted values to return vec
+	// // add any non-sorted values to new_row_data
+	// for i in 0..row_data.len() {
+	// 	if !row_data_taken[i] {
+	// 		new_row_data.push(row_data[i].clone());
+	// 	}//end if this element hasn't been moved already
+	// }//end adding non-sorted values to return vec
 
     return new_row_data;
 }//end sort_row_data()
