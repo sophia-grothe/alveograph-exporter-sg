@@ -63,8 +63,10 @@ pub fn write_output_to_sheet(workbook: &mut Workbook, data: &Vec<Data>, sheet_na
         sheet.write_with_format(row_num+2,1,"3".to_string(), &test_name_format)?;
         sheet.write_with_format(row_num+3,1,"4".to_string(), &test_name_format)?;
         sheet.write_with_format(row_num+4,1,"5".to_string(), &test_name_format)?;
-		sheet.write_with_format(row_num+5,1,"AVG".to_string(), &test_name_format)?;
-		sheet.write_with_format(row_num+6,1,"calcAVG".to_string(), &test_name_format)?;
+		sheet.write_with_format(row_num+5,1,"calcAVG".to_string(), &test_name_format)?;
+		sheet.write_with_format(row_num+7,1,"AVG".to_string(), &test_name_format)?;
+		sheet.write_with_format(row_num+8,1,"Diff".to_string(), &test_name_format)?;
+
 
 		for (col_offset,row) in data_file.curve_data1.iter().enumerate() {
             let col_offset = col_offset as u16;
@@ -88,7 +90,7 @@ pub fn write_output_to_sheet(workbook: &mut Workbook, data: &Vec<Data>, sheet_na
         }//end looping over each row of data to place in a column
 		for (col_offset,row) in data_file.row_data.iter().enumerate() {
             let col_offset = col_offset as u16;
-            sheet.write_number_with_format(row_num+5,2+col_offset,row.value, &default_format)?;
+            sheet.write_number_with_format(row_num+7,2+col_offset,row.value, &default_format)?;
         }//end looping over each row of data to place in a column
         for (index, _) in data_file.row_data.iter().enumerate() {
             let curve1 = data_file.curve_data1.get(index).unwrap();
@@ -97,11 +99,16 @@ pub fn write_output_to_sheet(workbook: &mut Workbook, data: &Vec<Data>, sheet_na
             let curve4 = data_file.curve_data4.get(index).unwrap();
             let curve5 = data_file.curve_data5.get(index).unwrap();
             let avg = (curve1.value+curve2.value+curve3.value+curve4.value+curve5.value)/5.0;
+            let fileavg = data_file.row_data.get(index).unwrap();
+            let diff = avg-fileavg.value;
             let index = index as u16;
-            sheet.write_number_with_format(row_num+6, 2+index, avg, &default_format)?;
+            sheet.write_number_with_format(row_num+5, 2+index, avg, &default_format)?;
+            sheet.write_number_with_format(row_num+8, 2+index, diff, &default_format)?;
+
 
         }
-        row_num += 8;
+
+        row_num += 10;
     }//end looping over each data file
 
     sheet.set_column_width(0, 14.5)?;
