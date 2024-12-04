@@ -136,7 +136,7 @@ pub fn read_data_from_file(filename: &str, file_contents: &str, config: &ConfigS
     }//end matching the row read method
 
     // sort the row_data based off config
-    let mut sorted_0 = sort_row_data(row_data, config);
+    let mut sorted_0 = sort_row_data(filename, row_data, config);
 	row_data = sorted_0.0;
 	errs.append(&mut sorted_0.1);
 
@@ -153,7 +153,7 @@ pub fn read_data_from_file(filename: &str, file_contents: &str, config: &ConfigS
 			}//end matching whether we can parse the raw value
 		}//end else we can get split stuff find
 	}
-	let mut sorted_1 = sort_row_data(curve1, config);
+	let mut sorted_1 = sort_row_data(filename, curve1, config);
 	curve1 = sorted_1.0;
 	errs.append(&mut sorted_1.1);
 
@@ -170,7 +170,7 @@ pub fn read_data_from_file(filename: &str, file_contents: &str, config: &ConfigS
 			}//end matching whether we can parse the raw value
 		}//end else we can get split stuff find
 	}
-	let mut sorted_2 = sort_row_data(curve2, config);
+	let mut sorted_2 = sort_row_data(filename, curve2, config);
 	curve2 = sorted_2.0;
 	errs.append(&mut sorted_2.1);
 
@@ -187,7 +187,7 @@ pub fn read_data_from_file(filename: &str, file_contents: &str, config: &ConfigS
 			}//end matching whether we can parse the raw value
 		}//end else we can get split stuff find
 	}
-	let mut sorted_3 = sort_row_data(curve3, config);
+	let mut sorted_3 = sort_row_data(filename, curve3, config);
 	curve3 = sorted_3.0;
 	errs.append(&mut sorted_3.1);
 
@@ -204,7 +204,7 @@ pub fn read_data_from_file(filename: &str, file_contents: &str, config: &ConfigS
 			}//end matching whether we can parse the raw value
 		}//end else we can get split stuff find
 	}
-	let mut sorted_4 = sort_row_data(curve4, config);
+	let mut sorted_4 = sort_row_data(filename, curve4, config);
 	curve4 = sorted_4.0;
 	errs.append(&mut sorted_4.1);
 
@@ -221,7 +221,7 @@ pub fn read_data_from_file(filename: &str, file_contents: &str, config: &ConfigS
 			}//end matching whether we can parse the raw value
 		}//end else we can get split stuff find
 	}
-	let mut sorted_5 = sort_row_data(curve5, config);
+	let mut sorted_5 = sort_row_data(filename, curve5, config);
 	curve5 = sorted_5.0;
 	errs.append(&mut sorted_5.1);
 
@@ -241,7 +241,7 @@ pub fn read_data_from_file(filename: &str, file_contents: &str, config: &ConfigS
 /// in front of unspecified rows.  
 /// Note: The sorting doesn't have great O(n) for speed or space, but n is small
 /// enough for the expected input that it shouldn't matter.
-pub fn sort_row_data(row_data: Vec<Row>, config: &ConfigStore) -> (Vec<Row>, Vec<String>) {
+pub fn sort_row_data(filename: &str, row_data: Vec<Row>, config: &ConfigStore) -> (Vec<Row>, Vec<String>) {
     let mut new_row_data = Vec::new();
 	let mut errors = Vec::new();
     let mut row_data_taken: Vec<bool> = vec![false; row_data.len()];
@@ -255,7 +255,7 @@ pub fn sort_row_data(row_data: Vec<Row>, config: &ConfigStore) -> (Vec<Row>, Vec
             }//end if we found a match
         }//end searching for position of matching header
 		if foundheader == false {
-			errors.push(format!("header not found: {}",header_template));
+			errors.push(format!("header not found: \"{}\" in {}",header_template,filename));
 		}
 	}//end finding all the sorted headers we can
 
